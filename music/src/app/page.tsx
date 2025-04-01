@@ -1,47 +1,14 @@
 import Image from "next/image";
 import classNames from "classnames";
 import styles from "./page.module.css";
+import { Navigation } from "@/components/Navigation/Navigation";
 
 export default function Home() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <main className={styles.main}>
-          <nav className={styles.main__nav}>
-            <div className={styles.nav__logo}>
-              <Image
-                className={styles.logo__image}
-                width={128}
-                height={46}
-                src="/logo_dark.png"
-                alt="logo"
-              />
-            </div>
-            <div className={styles.nav__burger}>
-              <span className={styles.burger__line}></span>
-              <span className={styles.burger__line}></span>
-              <span className={styles.burger__line}></span>
-            </div>
-            <div className={styles.nav__menu}>
-              <ul className={styles.menu__list}>
-                <li className={styles.menu__item}>
-                  <a href="#" className={styles.menu__link}>
-                    Главное
-                  </a>
-                </li>
-                <li className={styles.menu__item}>
-                  <a href="#" className={styles.menu__link}>
-                    Мой плейлист
-                  </a>
-                </li>
-                <li className={styles.menu__item}>
-                  <a href="../signin.html" className={styles.menu__link}>
-                    Войти
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </nav>
+        <Navigation/>
           <div className={styles.main__centerblock}>
             <div className={styles.centerblock__search}>
               <svg className={styles.search__svg}>
