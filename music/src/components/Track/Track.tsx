@@ -1,6 +1,7 @@
+import { TrackType } from '../../../types/TrackType'
 import styles from './Track.module.css'
 
-export const Track = ({ name, author, album, time }) => {
+export const Track = ({ name, author, album, duration_in_seconds }:TrackType) => {
   return (
     <div className={styles.playlist__track}>
       <div className={styles.track__title}>
@@ -29,7 +30,7 @@ export const Track = ({ name, author, album, time }) => {
         <svg className={styles.track__timesvg}>
           <use xlinkHref="icon/sprite.svg#icon-like"></use>
         </svg>
-        <span className={styles.track__timeText}>{time}</span>
+        <span className={styles.track__timeText}>{duration_in_seconds}</span>
       </div>
     </div>
   )

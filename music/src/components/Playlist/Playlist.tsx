@@ -1,12 +1,14 @@
 'use client'
 import classNames from 'classnames'
 import styles from './Playlist.module.css'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getTracks } from '../../../api/api'
 import { Track } from '../Track/Track'
+import { TrackType } from '../../../types/TrackType'
 
 export const Playlist = () => {
-  const [allTracks, setAllTracks] = useState([])
+  const [allTracks, setAllTracks] = React.useState<TrackType[]>([])
+
   useEffect(() => {
     try {
       getTracks().then((res) => {
@@ -44,8 +46,9 @@ export const Playlist = () => {
                   key={track._id}
                   name={track.name}
                   author={track.author}
+                  genre={track.genre}
                   album={track.album}
-                  time={track.duration_in_seconds}
+                  duration_in_seconds={track.duration_in_seconds}
                 />
               )
             })}
