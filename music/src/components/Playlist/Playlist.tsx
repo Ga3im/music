@@ -1,24 +1,25 @@
-'use client'
 import classNames from 'classnames'
 import styles from './Playlist.module.css'
-import React, { useEffect, useState } from 'react'
-import { getTracks } from '../../../api/api'
 import { Track } from '../Track/Track'
 import { TrackType } from '../../../types/TrackType'
+import { Dispatch, SetStateAction } from 'react'
 
-export const Playlist = () => {
-  const [allTracks, setAllTracks] = React.useState<TrackType[]>([])
-
-  useEffect(() => {
-    try {
-      getTracks().then((res) => {
-        setAllTracks(res.data)
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }, [])
-  console.log(allTracks)
+type playlistPropType = {
+  allTracks: TrackType[]
+  setIsPlaying: Dispatch<
+    SetStateAction<boolean | Dispatch<SetStateAction<boolean>>>
+  >
+  currentTrack: TrackType
+  setCurrentTrack: Dispatch<SetStateAction<TrackType | null>>
+  isPlaying: boolean | Dispatch<SetStateAction<boolean>>
+}
+export const Playlist = ({
+  allTracks,
+  setIsPlaying,
+  currentTrack,
+  setCurrentTrack,
+  isPlaying,
+}: playlistPropType) => {
   return (
     <>
       <div className={styles.centerblock__content}>
@@ -43,12 +44,12 @@ export const Playlist = () => {
             {allTracks.map((track) => {
               return (
                 <Track
+                  isPlaying={isPlaying}
+                  currentTrack={currentTrack}
+                  setCurrentTrack={setCurrentTrack}
+                  setIsPlaying={setIsPlaying}
                   key={track._id}
-                  name={track.name}
-                  author={track.author}
-                  genre={track.genre}
-                  album={track.album}
-                  duration_in_seconds={track.duration_in_seconds}
+                  track={track}
                 />
               )
             })}

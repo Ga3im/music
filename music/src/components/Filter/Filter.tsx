@@ -1,12 +1,25 @@
 'use client'
 import styles from './Filter.module.css'
 import { FilterItem } from '../FilterItem/FilterItem'
+import { Dispatch, SetStateAction, useState } from 'react'
+
+export type TypeFilters = {
+  id?: string
+  title: string
+  list?: string[]
+  activeFilter?: string | null
+  setActiveFilter?: Dispatch<SetStateAction<string | null>>
+}
 
 export const Filter = () => {
-  const filters: string[] = ['исполнителью', 'году выпуска', 'жанру']
-  const openFilter = () => {
-    console.log('saw')
-  }
+  const [activeFilter, setActiveFilter] = useState<string | null>(null)
+
+  const filterDate = ['По умолчанию', 'Сначала новые', 'Сначала старые']
+  const filters: TypeFilters[] = [
+    { id: '1', title: 'исполнителью' },
+    { id: '2', title: 'году выпуска', list: filterDate },
+    { id: '3', title: 'жанру' },
+  ]
   return (
     <>
       <div className={styles.centerblock__search}>
@@ -23,8 +36,15 @@ export const Filter = () => {
       <h2 className={styles.centerblock__h2}>Треки</h2>
       <div className={styles.centerblock__filter}>
         <div className={styles.filter__title}>Искать по:</div>
-        {filters.filter((filter: string) => (
-          <FilterItem onclick={openFilter} key={filter} title={filter} />
+
+        {filters.map((i) => (
+          <FilterItem
+            key={i.id}
+            title={i.title}
+            list={i.list}
+            activeFilter={activeFilter}
+            setActiveFilter={setActiveFilter}
+          />
         ))}
       </div>
     </>

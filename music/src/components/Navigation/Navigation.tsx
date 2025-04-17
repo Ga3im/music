@@ -12,15 +12,7 @@ export const Navigation = () => {
 
     return (
         <nav className={styles.main__nav}>
-            <div className={styles.nav__logo}>
-                <Image
-                    className={styles.logo__image}
-                    width={128}
-                    height={46}
-                    src="/logo_dark.png"
-                    alt="logo"
-                />
-            </div>
+         
             <div onClick={openMenu} className={styles.nav__burger}>
                 <span className={styles.burger__line}></span>
                 <span className={styles.burger__line}></span>
