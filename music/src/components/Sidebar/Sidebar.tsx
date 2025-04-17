@@ -1,56 +1,32 @@
-import Image from "next/image"
-import styles from "./Sidebar.module.css";
+import styles from './Sidebar.module.css'
+import classNames from 'classnames'
 
-export const Sidebar = () =>{
- return(
+export const Sidebar = () => {
+  return (
     <>
-     <div className={styles.main__sidebar}>
-            <div className={styles.sidebar__personal}>
-              <p className={styles.sidebar__personalName}>Sergey.Ivanov</p>
-              <div className={styles.sidebar__icon}>
-                <svg>
-                  <use xlinkHref="icon/sprite.svg#logout"></use>
-                </svg>
-              </div>
+      <div className={styles.main__sidebar}>
+        <div className={styles.sidebar__block}>
+          <div className={styles.sidebar__list}>
+            <div  className={classNames(styles.sidebar__item, styles.playlist01)}>
+              <p className={styles.sidebar_text}>Плейлист дня</p>
             </div>
-            <div className={styles.sidebar__block}>
-              <div className={styles.sidebar__list}>
-                <div className={styles.sidebar__item}>
-                  <a className={styles.sidebar__link} href="#">
-                    <Image
-                      className={styles.sidebar__img}
-                      src="/playlist01.png"
-                      alt="day's playlist"
-                      width={250}
-                      height={150}
-                    />
-                  </a>
-                </div>
-                <div className={styles.sidebar__item}>
-                  <a className={styles.sidebar__link} href="#">
-                    <Image
-                      className={styles.sidebar__img}
-                      src="/playlist02.png"
-                      alt="day's playlist"
-                      width={250}
-                      height={150}
-                    />
-                  </a>
-                </div>
-                <div className={styles.sidebar__item}>
-                  <a className={styles.sidebar__link} href="#">
-                    <Image
-                      className={styles.sidebar__img}
-                      src="/playlist03.png"
-                      alt="day's playlist"
-                      width={250}
-                      height={150}
-                    />
-                  </a>
-                </div>
-              </div>
+            <div
+              className={classNames(styles.sidebar__item, styles.playlist02)}
+            >
+              <p className={styles.sidebar_text}> 100 танцевальных хитов</p>
+              <a className={styles.sidebar__link} href="#"></a>
+            </div>
+            <div  className={classNames(styles.sidebar__item, styles.playlist03)}>
+              <p className={styles.sidebar_text}>Инди-заряд</p>
+            </div>
+            <div
+              className={classNames(styles.sidebar__item, styles.playlist04)}
+            >
+              <p className={styles.sidebar_text}>Избранные</p>
             </div>
           </div>
+        </div>
+      </div>
     </>
- )
+  )
 }

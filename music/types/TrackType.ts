@@ -5,5 +5,5 @@ export type TrackType = {
   duration_in_seconds: number
   genre: string[]
   name: string
-
+  track_file?: string
 }

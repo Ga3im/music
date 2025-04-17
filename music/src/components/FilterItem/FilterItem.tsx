@@ -2,15 +2,17 @@
 import classNames from 'classnames'
 import styles from './FilterItem.module.css'
 import { TypeFilters } from '../Filter/Filter'
-import { useState } from 'react'
 
-export const FilterItem = ({ title, list }: TypeFilters) => {
-  let [activeFilter, setActiveFilter] = useState<string | null>(null)
-
+export const FilterItem = ({
+  title,
+  list,
+  activeFilter,
+  setActiveFilter,
+}: TypeFilters) => {
   const openFilter = () => {
-    setActiveFilter(
-      activeFilter === title ? (activeFilter = null) : (activeFilter = title),
-    )
+    if (setActiveFilter) {
+      setActiveFilter(activeFilter === title ? null : title)
+    }
   }
 
   return (
@@ -26,13 +28,13 @@ export const FilterItem = ({ title, list }: TypeFilters) => {
         {title}
       </div>
 
-      {activeFilter && activeFilter === title ? (
+      {activeFilter === title && (
         <div className={styles.list}>
           {list?.map((i) => {
             return <p key={i}>{i}</p>
           })}
         </div>
-      ) : null}
+      )}
     </div>
   )
 }

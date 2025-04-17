@@ -1,9 +1,45 @@
-import classNames from "classnames"
-import styles from "./Player.module.css"
+import classNames from 'classnames'
+import styles from './Player.module.css'
+import { Dispatch, RefObject, SetStateAction, useEffect, useRef } from 'react'
+import { TrackType } from '../../../types/TrackType'
 
-export const Player = () =>{
-    return(
-        <div className={styles.bar}>
+type playerType = {
+  isPlaying: boolean | Dispatch<SetStateAction<boolean>>
+  setIsPlaying: Dispatch<
+    SetStateAction<boolean | Dispatch<SetStateAction<boolean>>>
+  >
+  currentTrack: TrackType
+}
+
+export const Player = ({
+  isPlaying,
+  setIsPlaying,
+  currentTrack,
+}: playerType) => {
+  const audioRef: RefObject<null> = useRef(null)
+
+  const playMusic = () => {
+    if (isPlaying) {
+      audioRef.current.pause()
+      setIsPlaying(false)
+    } else {
+      audioRef.current.play()
+
+      setIsPlaying(true)
+    }
+  }
+
+  useEffect(() => {
+    if (isPlaying) {
+      audioRef.current.play()
+    } else {
+      audioRef.current.pause()
+    }
+  }, [isPlaying])
+
+  return (
+    <>
+      <div className={styles.bar}>
         <div className={styles.bar__content}>
           <div className={styles.bar__playerProgress}></div>
           <div className={styles.bar__playerBlock}>
@@ -14,9 +50,13 @@ export const Player = () =>{
                     <use xlinkHref="icon/sprite.svg#icon-prev"></use>
                   </svg>
                 </div>
-                <div className={styles.player__btnPlay}>
+                <div onClick={playMusic} className={styles.player__btnPlay}>
                   <svg className={styles.player__btnPlaySvg}>
-                    <use xlinkHref="icon/sprite.svg#icon-play"></use>
+                    {isPlaying ? (
+                      <use xlinkHref="icon/sprite.svg#icon-pause"></use>
+                    ) : (
+                      <use xlinkHref="icon/sprite.svg#icon-play"></use>
+                    )}
                   </svg>
                 </div>
                 <div className={styles.player__btnNext}>
@@ -44,19 +84,13 @@ export const Player = () =>{
                     </svg>
                   </div>
                   <div className={styles.trackPlay__author}>
-                    <a
-                      className={styles.trackPlay__authorLink}
-                      href="http://"
-                    >
-                      Ты та...
+                    <a className={styles.trackPlay__authorLink} href="http://">
+                      {currentTrack.name}
                     </a>
                   </div>
                   <div className={styles.trackPlay__album}>
-                    <a
-                      className={styles.trackPlay__authorLink}
-                      href="http://"
-                    >
-                      Баста
+                    <a className={styles.trackPlay__authorLink} href="http://">
+                      {currentTrack.author}
                     </a>
                   </div>
                 </div>
@@ -65,7 +99,7 @@ export const Player = () =>{
                   <div
                     className={classNames(
                       styles.trackPlay__like,
-                      styles._btnIcon
+                      styles._btnIcon,
                     )}
                   >
                     <svg className={styles.trackPlay__likeSvg}>
@@ -75,13 +109,19 @@ export const Player = () =>{
                   <div
                     className={classNames(
                       styles.trackPlay__dislike,
-                      styles._btnIcon
+                      styles._btnIcon,
                     )}
                   >
                     <svg className={styles.trackPlay__dislikeSvg}>
                       <use xlinkHref="icon/sprite.svg#icon-dislike"></use>
                     </svg>
                   </div>
+                  <audio
+                    controls
+                    className={styles.audio}
+                    ref={audioRef}
+                    src={currentTrack.track_file}
+                  ></audio>
                 </div>
               </div>
             </div>
@@ -104,5 +144,6 @@ export const Player = () =>{
           </div>
         </div>
       </div>
-    )
+    </>
+  )
 }
